@@ -137,3 +137,5 @@ Error: Cannot find ffprobe
 #### 解决
 
 项目初始化时设置ffmpeg及ffprobe的路径，`FFCreator.setFFPath();`。
+
+在项目初始化时调用 `FFCreator.setFFPath()` 函数来设置 `ffmpeg` 和 `ffprobe` 的路径。该函数使用 `ffmpegInstaller.path` 和 `ffprobeInstaller.path` 来设置这两个路径。
