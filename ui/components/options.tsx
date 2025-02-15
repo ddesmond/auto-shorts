@@ -133,22 +133,34 @@ export default function AdvancedOptions({ setAdvancedOptions }: { setAdvancedOpt
     async function fetchModels(aiType: string = selectedAIType.type) {
         console.log('Fetching AI models... Type: ' + aiType);
         setIsAiModelError('');
-
+    
         try {
-            let res = await fetch(`${BACKEND_ENDPOINT}/types/ai/models?type=${aiType}`)
-
-            let data = await res.json()
-
-            // Check if response is ok
+            const res = await fetch(`${BACKEND_ENDPOINT}/types/ai/models?type=${aiType}`);
+    
             if (!res.ok) {
-                setIsAiModelError('Failed to fetch AI models: ' + (data.error ?? data.toString()))
+                let errorMessage = `HTTP ${res.status} - ${res.statusText}`;
+    
+                try {
+                    const errorData = await res.json();
+                    errorMessage += `: ${errorData.error || JSON.stringify(errorData)}`;
+                } catch (jsonError) {
+                    console.warn("Failed to parse error response as JSON", jsonError);
+                }
+    
+                setIsAiModelError('Failed to fetch AI models: ' + errorMessage);
                 return;
             }
-
-            setAiModels(data.models)
-            setSelectedAIModel(data.models[0])
+    
+            const data = await res.json();
+            setAiModels(data.models);
+            setSelectedAIModel(data.models[0] || '');
+    
         } catch (e: any) {
-            setIsAiModelError('Failed to fetch AI models due to internal error: ' + (e.message ?? e.toString()));
+            if (e.name === 'TypeError' && e.message.includes('fetch')) {
+                setIsAiModelError('Network error: Unable to reach the backend. Check your connection or server status.');
+            } else {
+                setIsAiModelError('Failed to fetch AI models due to internal error: ' + (e.message ?? e.toString()));
+            }
         }
     }
 
