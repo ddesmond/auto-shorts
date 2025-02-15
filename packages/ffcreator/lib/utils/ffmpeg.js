@@ -38,6 +38,7 @@ const FFmpegUtil = {
    */
   setFFmpegPath(path) {
     ffmpeg.setFfmpegPath(path);
+    this.setFFPath();
   },
 
   /**
