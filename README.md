@@ -75,6 +75,9 @@ This example will clone the repository and start the backend server and frontend
 ```bash
 git clone https://github.com/alamshafil/auto-shorts
 cd auto-shorts
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install xserver-xorg-dev libxi-dev libxext-dev
+pip install setuptools
 npm install
 npm run install-ui-deps
 npx auto-shorts --download
@@ -82,10 +85,10 @@ npx auto-shorts --download
 
 ## Setup backend server
 
-Copy the `.env.example` file to a new `.env` file in the root directory and fill in the necessary information:
+Copy the `.env.sample` file to a new `.env` file in the root directory and fill in the necessary information:
 
 ```bash
-cp .env.example .env
+cp .env.sample .env
 ```
 
 The sample `.env` file by default uses the following environment variables:
@@ -114,10 +117,10 @@ You can also change the backend server configuration like the resource path, tem
 
 ## Setup frontend server
 
-Copy the `.env.example` file to a new `.env` file in the `ui` folder and fill in the necessary information:
+Copy the `.env.sample` file to a new `.env` file in the `ui` folder and fill in the necessary information:
 
 ```bash
-cp ui/.env.example ui/.env
+cp ui/.env.sample ui/.env
 ```
 
 The sample `ui/.env` file by default uses the following environment variables:
