@@ -89,7 +89,7 @@ export class WhisperSubtitles extends SubtitleGen {
             return channelData[0];
         }
 
-        function convertStereoToMono(channelData: Float32Array[]): Float32Array {
+        function convertStereoToMono(channelData: readonly Float32Array[]): Float32Array {
             const leftChannel = channelData[0];
             const rightChannel = channelData[1];
             const monoData = new Float32Array(leftChannel.length);
