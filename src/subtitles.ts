@@ -1,3 +1,5 @@
+"use strict";
+
 // Copyright (c) 2024 Shafil Alam
 
 import { VideoGen } from "./videogen";
@@ -77,11 +79,26 @@ export class WhisperSubtitles extends SubtitleGen {
             if (sampleRate !== 16000) {
                 throw new Error(`Invalid sample rate: ${sampleRate}`);
             }
+            if (channelData.length === 2) {
+                return convertStereoToMono(channelData);
+            }
             if (channelData.length !== 1) {
                 throw new Error(`Invalid channel count: ${channelData.length}`);
             }
         
             return channelData[0];
+        }
+
+        function convertStereoToMono(channelData: Float32Array[]): Float32Array {
+            const leftChannel = channelData[0];
+            const rightChannel = channelData[1];
+            const monoData = new Float32Array(leftChannel.length);
+        
+            for (let i = 0; i < leftChannel.length; i++) {
+                monoData[i] = (leftChannel[i] + rightChannel[i]) / 2;
+            }
+        
+            return monoData;
         }
     }
 
