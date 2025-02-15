@@ -1,3 +1,8 @@
+# v0.2.1
+- Updated README.md
+- Updated dependencies in package.json
+- Fixed many bugs
+
 # v0.2.0
 - TODO: Add description
 - Initial release of local web UI (Frontend uses Next.js, backend uses Express.js)
